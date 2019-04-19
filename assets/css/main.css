@@ -1,0 +1,59 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+	background: #484848;
+	/* background-image: url("../img/wheat.jpg"); */
+}
+
+.container{
+	padding: 0;
+	margin: 0;
+}
+
+.login-card{
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	height: 25em;
+	width: 25em;
+	margin: 10% 0 10% 0;
+	background: #fff;
+	justify-content: center;
+	padding: 2em;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.round-corner{
+	border-radius: 0;
+}
+
+.logo-container{
+	top:-3em;
+	position: absolute;
+	padding: 0.75em;
+	background: #fff;
+	/*border: 1em solid #484848;;*/
+}
+
+.circle{
+	border-radius: 50%;
+}
+
+.login-form{
+	margin-top: 2em;
+}
+
+.login-btn-container button{
+	margin-top: 1em;
+	width: 100%;
+}
+
+#logo{
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
+}
