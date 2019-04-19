@@ -21,13 +21,12 @@ class dashboard extends CI_Controller {
         $label = array();
         $baptism_count = array();
         for ($i=1; $i <= 12; $i++) {
-          if ($i < 10)
-            $month = "0".$i;
-          else
-            $month = $i;
-          $time = mktime(0, 0, 0, $month, 1, $year);
+          //Fills label with month names (will be used by graph)
+          $time = mktime(0, 0, 0, $i, 1, $year);
           array_push($label, date("F", $time));
-          $date = $year ."-" .$month;
+
+          //Fills data with amount of baptism event for the i-st/nd/rd/th month
+          $date = date("Y-m-", $time);
           array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
         }
         $data = array(
@@ -66,7 +65,16 @@ class dashboard extends CI_Controller {
             array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
           }
         } else {
-          // TODO: fill data and label with monthly data from xxxx year
+          $year = $date_type;
+          for ($i=1; $i <= 12; $i++) {
+            //Fills label with month names (will be used by graph)
+            $time = mktime(0, 0, 0, $i, 1, $year);
+            array_push($label, date("F", $time));
+
+            //Fills data with amount of baptism event for the i-st/nd/rd/th month
+            $date = date("Y-m-", $time);
+            array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
+          }
         }
         $data = array(
           'date_type' => $date_type,
