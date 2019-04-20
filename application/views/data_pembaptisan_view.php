@@ -108,10 +108,14 @@
           <td><?php echo $d->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <button class="btn btn-info" onclick="">
+            <button class="btn btn-info" onclick="lihat_pdf('<?php echo $d->file_surat; ?>')">
               <!-- icon -->
               Lihat
             </button>
+            <a href="<?php echo base_url("uploads/").$d->file_surat.".pdf"; ?>" class="btn btn-link">
+              <!-- icon -->
+              Download
+            </a>
             <button class="btn btn-success" onclick="
             tampil('e','<?php echo $d->nomor; ?>','<?php echo $d->nomor; ?>','<?php echo $d->nama; ?>',
               '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->nm_ayah; ?>',
@@ -172,6 +176,27 @@
             $('#myModalEdit').modal('show');
             $('#nl').focus();
           } // END TAMPIL FUNCTION
+
+          // membuat file pdf
+          function buat_pdf(nomorsurat,nama,tplahir, tglahir, ayah, ibu, hrbaptis, tgbaptis, oleh){
+              $('#judul_surat').html("Surat Nomor: "+nomorsurat);
+              $('#myModalLihatSurat').modal({backdrop: 'static', keyboard:false});
+              $('#myModalLihatSurat').modal('show');
+              $("#iframe123").prop("src","<?php echo base_url('Surat_baptis/lihat_surat/'); ?>"+nomorsurat+"/"
+              +nama.replace(/\s+/g, '_')+"/"+tplahir.replace(/\s+/g, '_')+"/"+tglahir+"/"+ayah.replace(/\s+/g, '_')+"/"+ibu.replace(/\s+/g, '_')+"/"+hrbaptis.replace(/\s+/g, '_')+"/"+tgbaptis+"/"+oleh.replace(/\s+/g, '_'));
+              $('#nl').focus();
+
+          }
+
+          // melihat file pdf
+          function lihat_pdf(namafile) {
+            console.log(namafile);
+            $('#judul_surat').html("Surat Nomor: "+namafile);
+            $('#myModalLihatSurat').modal({backdrop: 'static', keyboard:false});
+            $('#myModalLihatSurat').modal('show');
+            $("#iframe123").prop("src","<?php echo base_url('Surat_baptis/tampilkan_surat/');?>"+namafile);
+          }
+
         </script>
 
 <!-- MODAL -->
@@ -249,9 +274,28 @@
   </div>
 </div>
 
+<!-- Modal untuk pdf -->
+<div class="modal fade" id="myModalLihatSurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="judul_surat">Judul</h3>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <div class="modal-body">
+          <iframe id="iframe123" src="" scrolling="yes" frameborder="0"
+    style="position: relative; height: 720px; width: 100%;"></iframe>
+
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-default" data-dismiss="modal">Tutup</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end -->
+
 <script type="text/javascript">
-    
-    
     document.getElementById("tgbaptis").addEventListener("change", function() {
         var input = this.value;
         var d = new Date(input);
@@ -267,7 +311,6 @@
        
         document.getElementById("hrbaptis").selectedIndex = d.getDay();
     });
-    
 </script>
 
 <?php

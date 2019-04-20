@@ -4,19 +4,22 @@
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Baptisan</h1>
-      <div class="btn-toolbar mb-2 mb-md-0">
-<!--         <div class="btn-group mr-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-        </div> -->
-        <!-- dropdown -->
-        <select name="waktu1" id="waktu1" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-          <option value="1">Tahun ini</option>
-          <option value="2">Bulan ini</option>
-          <option value="3">Minggu ini</option>
-        </select>
-        <!-- dropdown -->
-      </div>
+      <form action="<?php echo base_url() ?>Dashboard" method="post">
+        <div class="btn-toolbar mb-2 mb-md-0">
+  <!--         <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div> -->
+          <!-- dropdown -->
+          <select name="waktu1" id="waktu1" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <option value="0">Tahun ini</option>
+            <option value="1">Bulan ini</option>
+            <option value="2">Tahun xxxx</option>
+          </select>
+          <!-- dropdown -->
+          <input type="submit" class="btn btn-sm btn-outline-secondary">
+        </div>
+      </form>
     </div>
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
     <script type="text/javascript">

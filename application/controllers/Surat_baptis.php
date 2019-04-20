@@ -3,6 +3,7 @@ class Surat_baptis extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('M_surat');
+    $this->load->model('M_pdf');
   }
 
   function index(){
@@ -26,7 +27,7 @@ class Surat_baptis extends CI_Controller {
     $t4_lahir = $this->input->post('tempat_lahir');
     $tgl_lahir = $this->input->post('tanggal_lahir');
     $ayah = $this->input->post('nama_ayah');
-    $ibu = $this->input->post('nama_ibu'); 
+    $ibu = $this->input->post('nama_ibu');
     $hari_baptis = $this->input->post('hari_baptis');
     $tgl_baptis = $this->input->post('tanggal_baptis');
     $oleh = $this->input->post('oleh');
@@ -40,10 +41,12 @@ class Surat_baptis extends CI_Controller {
       'nm_ibu' => $ibu,
       'hari_baptis' => $hari_baptis,
       'tgl_baptis' => $tgl_baptis,
-      'nm_pastor' => $oleh
+      'nm_pastor' => $oleh,
+      'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
       );
-
     $this->M_surat->insert_data('data_baptis', $data);
+    $this->M_pdf->buat_surat($nomor,$nama,$t4_lahir,
+    $tgl_lahir,$ayah,$ibu,$hari_baptis,$tgl_baptis,$oleh);
     redirect('Surat_baptis');
   }
 
@@ -56,7 +59,7 @@ class Surat_baptis extends CI_Controller {
     $t4_lahir = $this->input->post('tempat_lahir');
     $tgl_lahir = $this->input->post('tanggal_lahir');
     $ayah = $this->input->post('nama_ayah');
-    $ibu = $this->input->post('nama_ibu'); 
+    $ibu = $this->input->post('nama_ibu');
     $hari_baptis = $this->input->post('hari_baptis');
     $tgl_baptis = $this->input->post('tanggal_baptis');
     $oleh = $this->input->post('oleh');
@@ -70,11 +73,12 @@ class Surat_baptis extends CI_Controller {
       'nm_ibu' => $ibu,
       'hari_baptis' => $hari_baptis,
       'tgl_baptis' => $tgl_baptis,
-      'nm_pastor' => $oleh
+      'nm_pastor' => $oleh,
+      'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
       );
 
     $this->M_surat->update_data('data_baptis', $data, $where);
-    redirect('Surat_baptis'); 
+    redirect('Surat_baptis');
   }
 
   function get_nomor_surat(){
@@ -93,7 +97,7 @@ class Surat_baptis extends CI_Controller {
     $found = true;
     while($found){
         $sql="SELECT nomor FROM data_baptis WHERE nomor LIKE '$nomor%' AND nomor LIKE '%$year'";
-        $res = $this->db->query($sql);    
+        $res = $this->db->query($sql);
         if($res->num_rows() > 0){
             $nomor= $nomor + 1;
             $nomor = $this->M_surat->addZero($nomor);
@@ -104,7 +108,21 @@ class Surat_baptis extends CI_Controller {
     $nomor = $this->M_surat->addZero($nomor).$format_nomor;
     return $nomor;
   }
-  
+
+  public function tampilkan_surat($filename="thefile")
+  {
+    //////// Cek jika file pdf ada atau tidak, 
+    //////// jika tidak, buat file pdfnya
+    $url=base_url();
+    $file = $url."/uploads/".$filename.".pdf";
+    if (!(file_exists($file))) {
+      // buat pdf
+    }
+    ///////
+    $this->pdf->filename=$filename.".pdf";
+    $this->output->set_content_type('application/pdf')->set_output(file_get_contents(
+      base_url()."uploads/".$filename.".pdf"));
+  }
 
 }
 ?>

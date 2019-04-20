@@ -16,7 +16,7 @@ class dashboard extends CI_Controller {
       //Checks if the URL contains a query e.g ..dashboard?query=..
       //If it doesn't contain any query then load a default data
       //Default data = this year mode in query type URL
-      if(!parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) {
+      if(!isset($_POST['waktu1'])) {
         $year = date("Y");
         $label = array();
         $baptism_count = array();
@@ -39,7 +39,7 @@ class dashboard extends CI_Controller {
         //Else fetch data based on the specified date format
         //0 = this year, 1 = this month, xxxx = year[xxxx]
         //e.g ../dashboard?query=0 will look for data that was inputted in this year
-        $date_type = $_GET['query'];
+        $date_type = $this->input->post('waktu1');
         $year = date("Y");
         $label = array();
         $baptism_count = array();
@@ -58,9 +58,9 @@ class dashboard extends CI_Controller {
           $max_day = (date("t"));
           for ($i=1; $i <= $max_day ; $i++) {
             $time = mktime(0,0,0,$month, $i, $year);
-            $date = date("Y-m-d", $date);
+            $date = date("Y-m-d", $time);
             //Fills label with numbers from 01 to max date(31/30/29/28)
-            array_push($label, date("d", $date));
+            array_push($label, date("d", $time));
             //Fills baptism_count
             array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
           }
