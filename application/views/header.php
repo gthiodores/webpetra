@@ -8,6 +8,8 @@
   <meta name="generator" content="Jekyll v3.8.5">
   <title>Gereja Petra Makassar</title>
 
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/img/favicon.ico">
+
   <!--<link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">-->
 
   <!-- Bootstrap core CSS -->
@@ -47,4 +49,3 @@
       </li>
     </ul>
   </nav>
-

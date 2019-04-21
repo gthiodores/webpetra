@@ -29,9 +29,9 @@
           unlink(str_replace(base_url(),"./",$path));
         }
 
-        // untuk mengubah karakter "/" 
+        // untuk mengubah karakter "/"
         // pada id surat menjadi "_"
-        private function convert_slash_to_underscore($str)
+        public function convert_slash_to_underscore($str)
         {
           return str_replace("/", "_", $str);
         }

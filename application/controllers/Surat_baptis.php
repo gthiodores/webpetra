@@ -44,10 +44,22 @@ class Surat_baptis extends CI_Controller {
       'nm_pastor' => $oleh,
       'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
       );
+
+
     $this->M_surat->insert_data('data_baptis', $data);
-    $this->M_pdf->buat_surat($nomor,$nama,$t4_lahir,
-    $tgl_lahir,$ayah,$ibu,$hari_baptis,$tgl_baptis,$oleh);
-    redirect('Surat_baptis');
+
+    $this->session->set_flashdata('data_array', $data);
+    redirect('Surat_baptis/pdf/');
+  }
+
+  function pdf(){
+    $data = $this->session->flashdata('data_array');
+
+    $this->M_pdf->buat_surat($data['nomor'],$data['nama'],$data['tempat_lahir'],
+      $data['tgl_lahir'],$data['nm_ayah'],$data['nm_ibu'],$data['hari_baptis'],
+      $data['tgl_baptis'],$data['nm_pastor']);
+
+    $this->session->unset_userdata("dataArr");
   }
 
   function edit(){

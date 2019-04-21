@@ -7,6 +7,8 @@
 
 	<title>Login</title>
 
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/img/favicon.ico">
+
 	<!-- Penghubung dengan file CSS bootstrap 4.0 -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css">
 	<!-- Penghubung dengan file CSS override -->
@@ -69,4 +71,3 @@
 
 </body>
 </html>
-
