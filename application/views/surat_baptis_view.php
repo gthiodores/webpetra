@@ -36,7 +36,7 @@
         <div class="form-group row">
             <label class="col-sm-1 col-form-label" for="nomor">No</label class="col-sm-1 col-form-label">
             <div class="col-sm-2">
-                <input class="form-control" type="text" name="nomor" id="nomor" value="<?php echo $nomor ?>" readonly  required="true" />    
+                <input class="form-control" type="text" name="nomor" id="nomor" value="<?php echo $nomor ?>" readonly  required="true" /> 
             </div>
             
         </div>
@@ -76,7 +76,9 @@
         <div class="form-group row">
             <label class="col-sm-1 col-form-label" for="hari_baptis">Pada hari</label class="col-sm-1 col-form-label">
             <div class="col-sm-4">   
-                <select class="form-control" name="hari_baptis" id="hari_baptis" disabled="true">
+
+                <input class="form-control" type="text" name="hari_baptis" id="hari_baptis" readonly="true"/>
+                <!-- <select class="form-control" name="hari_baptis" id="hari_baptis">
                     <option value="0">Minggu</option>
                     <option value="1">Senin</option>
                     <option value="2">Selasa</option>
@@ -85,7 +87,7 @@
                     <option value="5">Jumat</option>
                     <option value="6">Sabtu</option>
                 </select>
-            </div>
+ -->            </div>
             <label class="col-sm-1 col-form-label" for="tanggal_baptis">tanggal</label class="col-sm-1 col-form-label">
             <div class="col-sm-4">
                 <input class="form-control" type="date" name="tanggal_baptis" id="tanggal_baptis" required="true" />
@@ -113,7 +115,6 @@
 
 <script type="text/javascript">
     
-    
     document.getElementById("tanggal_baptis").addEventListener("change", function() {
         var input = this.value;
         var d = new Date(input);
@@ -127,7 +128,7 @@
         weekday[5] = "Jumat";
         weekday[6] = "Sabtu";
        
-        document.getElementById("hari_baptis").selectedIndex = d.getDay();
+        document.getElementById("hari_baptis").value = weekday[d.getDay()];
     });
     
 </script>
