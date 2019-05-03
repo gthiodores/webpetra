@@ -157,16 +157,16 @@
             $("#oleh").val(oleh);
             
             if (mode=='t'){
-              $('#judul').html("Tambah User");
+              $('#judul').html("Tambah Data");
               $("input").prop('disabled', false);
               $('#bs').html("Simpan");
             } else {
               if (mode=='e'){
-                $('#judul').html("Edit User");
+                $('#judul').html("Edit Data");
                 $("input").prop('disabled', false);
                 $('#bs').html("Simpan");
               } else {
-                $('#judul').html("Hapus User");
+                $('#judul').html("Hapus Data");
                 $("input").prop('disabled', true);
                 $('#bs').html("Hapus");
               } // end IF ELSE
@@ -262,7 +262,13 @@
           </tr>
           <tr>
             <td>Oleh</td>
-            <td><input id="oleh" type="text" name="oleh"></td>
+            <td>
+                <select name="oleh" id="oleh">
+                    <?php foreach($pastors as $pastor) { ?>
+                        <option value="<?php echo $pastor->nm_pastor; ?>"><?php echo $pastor->nm_pastor; ?></option>
+                    <?php } ?>
+                </select>
+              </td>
           </tr>
         </table>
       </div>

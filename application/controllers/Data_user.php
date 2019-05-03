@@ -13,7 +13,7 @@ class Data_user extends CI_Controller {
     if($s == null || $hak_akses & 1 != 1){
       redirect(base_url());
     } else {
-      $data['users'] = $this->M_user->get_all_user();
+      $data['users'] = $this->M_user->get_all_data('data_user');
       $this->load->view('data_user_view', $data);
     }
   }
@@ -42,11 +42,16 @@ class Data_user extends CI_Controller {
     $password = $this->input->post('password');
     $hak_akses = $this->input->post('hak_akses');
 
+
     $data = array (
       'username' => $username,
-      'password' => md5($password),
+    
       'hak_akses' => $hak_akses
-      );
+    ); 
+
+    if ($password != ""){
+        $data['password'] = md5($password);
+    }
 
     $this->M_user->update_data('data_user',$data, $where);
     redirect('Data_user');

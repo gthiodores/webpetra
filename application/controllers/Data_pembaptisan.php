@@ -5,6 +5,7 @@ class Data_pembaptisan extends CI_Controller {
         parent::__construct();
         $this->load->model('M_surat');
         $this->load->model('M_login');
+        $this->load->model('M_user');
         $this->load->model('M_pdf');
     }
 
@@ -12,10 +13,11 @@ class Data_pembaptisan extends CI_Controller {
         $s = $this->session->userdata("status");
         $username = $this->session->userdata("username");
         $hak_akses =$this->session->userdata("hak_akses");
-        if($s == null || $hak_akses & 2 != 2){
+        if($s == null || $hak_akses & 0b10 != 0b10){
             redirect(base_url());
         } else {
             $data['dt_baptis'] = $this->M_surat->get_data_all('data_baptis');
+            $data['pastors'] = $this->M_user->get_field('nm_pastor','data_pastor');
             $this->load->view('data_pembaptisan_view', $data);
         }
     }

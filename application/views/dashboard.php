@@ -12,9 +12,9 @@
           </div> -->
           <!-- dropdown -->
           <select name="waktu1" id="waktu1" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <option value="0">Tahun ini</option>
-            <option value="1">Bulan ini</option>
-            <option value="2">Tahun xxxx</option>
+            <option value="1">Tiap Tahun</option>
+            <option value="2">Bulanan</option>
+            <option value="3">Mingguan</option>
           </select>
           <!-- dropdown -->
           <input type="submit" class="btn btn-sm btn-outline-secondary">
@@ -33,9 +33,9 @@
       <div class="btn-toolbar mb-2 mb-md-0">
         <!-- dropdown -->
         <select name="waktu2" id="waktu2" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-          <option value="1">Tahun ini</option>
-          <option value="2">Bulan ini</option>
-          <option value="3">Minggu ini</option>
+          <option value="1">Tiap Tahun</option>
+          <option value="2">Bulanan</option>
+          <option value="3">Mingguan</option>
         </select>
         <!-- dropdown -->
       </div>

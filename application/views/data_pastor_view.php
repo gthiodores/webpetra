@@ -6,8 +6,8 @@
 
 <script type="text/javascript">
 
-  function isKosong(vus){
-      if (vus.trim() != "") {
+  function isKosong(vnm){
+      if (vnm.trim() != ""){
         return false;
       }
       return true;
@@ -18,26 +18,22 @@
     var vha1,vha2,vha3;
     mode = $("#mode").val();
     switch (mode) {
-      case "t": teks = "Data sudah benar?"; lok = "Data_user/tambah"; break;
-      case "e": teks = "Data sudah benar?"; lok = "Data_user/edit"; break;
-      case "h": teks = "Data akan dihapus?"; lok = "Data_user/hapus"; break;
+      case "t": teks = "Data sudah benar?"; lok = "Data_pastor/tambah"; break;
+      case "e": teks = "Data sudah benar?"; lok = "Data_pastor/edit"; break;
+      case "h": teks = "Data akan dihapus?"; lok = "Data_pastor/hapus"; break;
     } // END Switch Case
 
     if (confirm(teks) == true) {
       vid = $("#id").val();
       if (mode != "h"){
-        vus = $("#us").val();
-        vps = $("#ps").val();
+        vid = $("#id").val();
+        vnm = $("#nm").val();
 
-        vha1 = (($('#ha1').is(':checked'))? (Number($("#ha1").val())):0);
-        vha2 = (($('#ha2').is(':checked'))? (Number($("#ha2").val())):0);
-        vha3 = (($('#ha3').is(':checked'))? (Number($("#ha3").val())):0);
-        vha = vha1+vha2+vha3;
-        if(!isKosong(vus)){
+        if(!isKosong(vnm)){
           $.ajax({
             url:"<?php echo base_url(); ?>"+lok,
             type: "post",
-            data:{id:vid, username: vus, password: vps, hak_akses: vha},
+            data:{id:vid, nama:vnm},
             success: function(res){
               location.reload();
             }
@@ -79,21 +75,19 @@
         <thead>
 
         <tr>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Hak Akses</th>
+          <th>ID</th>
+          <th>Nama Pastor</th>
           <th>Operasi</th>
         </tr>
         </thead>
         <?php foreach ($users as $u) { ?>
         <tr>
-          <td><?php echo $u->username; ?></td>
-          <td><?php echo $u->password; ?></td>
-          <td><?php echo $u->hak_akses; ?></td>
+          <td><?php echo $u->id; ?></td>
+          <td><?php echo $u->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <button class="btn btn-success" onclick="tampil('e','<?php echo $u->username; ?>','<?php echo $u->username; ?>','<?php echo $u->hak_akses; ?>')">Edit</button>
-            <button class="btn btn-danger" onclick="tampil('h','<?php echo $u->username; ?>','<?php echo $u->username; ?>','<?php echo $u->hak_akses; ?>')">Delete</button>
+            <button class="btn btn-success" onclick="tampil('e','<?php echo $u->id; ?>','<?php echo $u->nm_pastor; ?>','<?php echo $u->tanda_tangan; ?>')">Edit</button>
+            <button class="btn btn-danger" onclick="tampil('h','<?php echo $u->id; ?>','<?php echo $u->nm_pastor; ?>','<?php echo $u->tanda_tangan; ?>')">Delete</button>
             </div>
           </td>
         </tr>
@@ -105,41 +99,23 @@
 </main>
 
         <script type="text/javascript">
-          function tampil(mode, id, us, ha){
+          function tampil(mode, id, nm, ttd){
             $('#mode').val(mode);
             $('#id').val(id);
-            $('#us').val(us);
-            
-            
-            if(ha & 1){
-              $('#ha1').prop('checked', true);
-            } else{
-              $('#ha1').prop('checked', false);
-            } 
-            if(ha & 2){              
-              $('#ha2').prop('checked', true);
-            } else {
-              $('#ha2').prop('checked', false); 
-            }
-            if(ha & 4){
-              $('#ha3').prop('checked', true);  
-            } else{
-              $('#ha3').prop('checked', false);
-            }
-
-            console.log(ha & 2);
+            $('#nm').val(nm);
+            $('#ttd').val(ttd);
             
             if (mode=='t'){
-              $('#judul').html("Tambah User");
+              $('#judul').html("Tambah Pastor");
               $("input").prop('disabled', false);
               $('#bs').html("Simpan");
             } else {
               if (mode=='e'){
-                $('#judul').html("Edit User");
+                $('#judul').html("Edit Pastor");
                 $("input").prop('disabled', false);
                 $('#bs').html("Simpan");
               } else {
-                $('#judul').html("Hapus User");
+                $('#judul').html("Hapus Pastor");
                 $("input").prop('disabled', true);
                 $('#bs').html("Hapus");
               } // end IF ELSE
@@ -171,26 +147,17 @@
             <td><input id="id" type="text" name="id"></td>
           </tr>
           <tr>
-            <td>Nama User</td>
-            <td><input id="us" type="text" name="username"></td>
+            <td>Nama Pastor</td>
+            <td><input id="nm" type="text" name="nama"></td>
           </tr>
           <tr>
-            <td>Password</td>
-            <td><input id="ps" type="password" name="password"></td>
-          </tr>
-          <tr>
-            <td>Hak Akses</td>
+            <td>Tanda Tangan</td>
             <td>
-              <div class="checkbox">
-                <label><input id="ha1" type="checkbox" name="hak_akses" value="1"> Tabel Data User</label>
-              </div>
-              <div class="checkbox">
-                <label><input id="ha2" type="checkbox" name="hak_akses" value="2"> Tabel Data Pembaptisan</label>
-              </div>
-              <div class="checkbox">
-                <label><input id="ha3" type="checkbox" name="hak_akses" value="4"> Input Data Pembaptisan</label>
-              </div>
-              
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="ttd" name="tanda_tangan"
+                    aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="ttd">Choose file</label>
+                </div>
             </td>
           </tr>
         </table>

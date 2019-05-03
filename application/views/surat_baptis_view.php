@@ -1,11 +1,11 @@
 <?php
 
     // TAMBAH DATA PASTOR
-    $pastors = array("Raymond");
-    $countPastors = count($pastors);
-    for($i=1;$i<=50-$countPastors;$i++){
-        array_push($pastors,"pastor".$i);
-    }
+    // $pastors = array("Raymond");
+    // $countPastors = count($pastors);
+    // for($i=1;$i<=50-$countPastors;$i++){
+    //     array_push($pastors,"pastor".$i);
+    // }
 
 ?>
 
@@ -101,7 +101,7 @@
             <div class="col-sm-9">
                 <select class="form-control" name="oleh" id="oleh">
                     <?php foreach($pastors as $pastor) { ?>
-                        <option value="<?php echo $pastor; ?>"><?php echo $pastor; ?></option>
+                        <option value="<?php echo $pastor->nm_pastor; ?>"><?php echo $pastor->nm_pastor; ?></option>
                     <?php } ?>
                 </select>
             </div>
