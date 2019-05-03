@@ -3,6 +3,7 @@ class Surat_baptis extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('M_surat');
+    $this->load->model('M_user');
     $this->load->model('M_pdf');
   }
 
@@ -17,6 +18,7 @@ class Surat_baptis extends CI_Controller {
         echo 'haha';
       }
       $data['nomor'] = $this->get_nomor_surat();
+      $data['pastors'] = $this->M_user->get_field('nm_pastor','data_pastor');
       $this->load->view('surat_baptis_view',$data);
     }
   }
@@ -43,7 +45,7 @@ class Surat_baptis extends CI_Controller {
       'tgl_baptis' => $tgl_baptis,
       'nm_pastor' => $oleh,
       'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
-      );
+    );
 
 
     $this->M_surat->insert_data('data_baptis', $data);

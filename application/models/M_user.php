@@ -9,10 +9,16 @@
         }
 
         //SELECT * FROM $table
-        function get_all_user() {
-          $sql = 'SELECT username, password, hak_akses FROM data_user';
+        function get_all_data($table) {
+          $sql = 'SELECT * FROM '.$table;
           $query = $this->db->query($sql);
           return $query->result();
+        }
+
+        function get_field($field,$table){
+          $sql = 'SELECT '.$field.' FROM '.$table;
+          $query = $this->db->query($sql);
+          return $query->result(); 
         }
 
         function insert_data($table, $data) {

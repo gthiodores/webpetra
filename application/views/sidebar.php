@@ -11,15 +11,22 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php if($this->uri->segment(1)==""){echo 'active';}?>" href="<?php echo base_url(); ?>">
+            <a class="nav-link <?php if($this->uri->segment(1)=="Dashboard"){echo 'active';}?>" href="<?php echo base_url('Dashboard'); ?>">
               <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
+              Dashboard
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?php if($this->uri->segment(1)=="Surat_baptis"){echo 'active';}?>" href="<?php echo base_url('Surat_baptis'); ?>">
               <span data-feather="file-plus"></span>
               Isi Surat Pembaptisan
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link <?php if($this->uri->segment(1)=="Import_excel"){echo 'active';}?>" href="<?php echo base_url('Import_excel'); ?>">
+              <span data-feather="file-plus"></span>
+              Import data dari excel
             </a>
           </li>
         </ul>
@@ -41,7 +48,16 @@
           </li>
           <?php endif; ?>
 
-          <?php if($hak_akses & 0b10 == 2): ?>
+          <?php if($hak_akses & 0b100 == 0b100): ?>
+          <li class="nav-item">
+            <a class="nav-link <?php if($this->uri->segment(1)=="Data_pastor"){echo 'active';}?>" href="<?php echo base_url('Data_pastor') ?>">
+              <span data-feather="file-text"></span>
+              Data Pastor
+            </a>
+          </li>
+          <?php endif; ?>
+
+          <?php if($hak_akses & 0b10 == 0b10): ?>
           <li class="nav-item">
             <a class="nav-link <?php if($this->uri->segment(1)=="Data_pembaptisan"){echo 'active';}?>" href="<?php echo base_url('Data_pembaptisan') ?>">
               <span data-feather="file-text"></span>
