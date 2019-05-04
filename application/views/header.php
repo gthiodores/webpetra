@@ -33,8 +33,9 @@
   </style>
   <!-- Custom styles for this template -->
   <link href="<?php echo base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/css/bootstrap-datepicker.standalone.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
- 
+
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
