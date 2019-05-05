@@ -2,32 +2,51 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 class M_import extends CI_Model {
-    public $table = 'gpetra';
-    public $id = 'data_baptis';
+    public $table = 'data_baptis';
+    public $id = 'nomor';
     public $order = 'DESC';
     function __construct() {
         parent::__construct();
     }
-    //ini untuk memasukkan kedalam tabel pegawai
-    function loaddata($dataarray) {
-        for ($i = 0; $i < count($dataarray); $i++) {
-            $data = array(
-                'nomor' => $dataarray[$i]['nomor'],
-                'nama' => $dataarray[$i]['nama'],
-                'tempat_lahir' => $dataarray[$i]['tempat_lahir'],
-                'tgl_lahir' => $dataarray[$i]['tgl_lahir'],
-                'nm_ayah' => $dataarray[$i]['nm_ayah'],
-                'nm_ibu' => $dataarray[$i]['nm_ibu'],
-                'hari_baptis' => $dataarray[$i]['hari_baptis'],
-                'tgl_baptis' => $dataarray[$i]['tgl_baptis'],
-                'nm_pastor' => $dataarray[$i]['nm_pastor'],
-                'file_surat' => $dataarray[$i]['file_surat']
-            );
-            //ini untuk menambahkan apakah dalam tabel sudah ada data yang sama
-            //apabila data sudah ada maka data di-skip
-            // saya contohkan kalau ada data nama yang sama maka data tidak dimasukkan
-            $this->db->where('nomor', $this->input->post('nomor'));
-            if ($cek) {
-                $this->db->insert($this->table, $data);
-            }
+
+    public function upload_file($filename)
+    {
+        $this->load->library('upload');
+        $config['upload_path']='./uploads/excel/';
+        $config['allowed_types'] = 'xlsx';
+        $config['max_size']  = '2048';
+        $config['overwrite'] = true;
+        $config['file_name'] = $filename;
+        $this->upload->initialize($config); // Load konfigurasi uploadnya
+        if($this->upload->do_upload($filename)){
+        // Lakukan upload dan Cek jika proses upload berhasil
+        // Jika berhasil :
+          $return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
+          return $return;
         }
+        else{      // Jika gagal :
+          $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
+          return $return;
+        }
+    }
+    public function delete_file($filename)
+    {
+        $this->load->library('upload');
+        $config['upload_path']='./uploads/excel/';
+        $config['allowed_types'] = 'xlsx';
+        $config['max_size']  = '2048';
+        $config['overwrite'] = true;
+        $config['file_name'] = $filename;
+        $this->upload->initialize($config); // Load konfigurasi uploadnya
+        //delete file
+        $path = $config['upload_path']. $filename;
+        unlink($path);
+    }
+      public function insert_multiple($data){
+        $this->db->insert_batch('data_baptis', $data);
+      }
+      public function convert_slash_to_underscore($str)
+      {
+        return str_replace("/", "_", $str);
+      }
+}

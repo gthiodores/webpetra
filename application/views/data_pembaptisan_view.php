@@ -83,7 +83,7 @@
     </div>
 
     <div>
-      
+
       <table id="tbl_user" class="table table-striped table-bordered bootstrap-datatable datatable">
         <thead>
 
@@ -100,9 +100,9 @@
           <th>Operasi</th>
         </tr>
         </thead>
-        <?php foreach ($dt_baptis as $d) { ?>
+        <?php $i=0; foreach ($dt_baptis as $d) { ?>
         <tr>
-          <td><?php echo $d->nomor; ?></td>
+          <td data-order="<?php echo $i;?>"><?php echo $d->nomor; ?></td>
           <td><?php echo $d->nama; ?></td>
           <td><?php echo $d->tgl_baptis; ?></td>
           <td><?php echo $d->nm_pastor; ?></td>
@@ -112,7 +112,7 @@
               <!-- icon -->
               Lihat
             </button>
-            <a href="<?php echo base_url("uploads/").$d->file_surat.".pdf"; ?>" class="btn btn-link">
+            <a href="<?php echo "Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-link">
               <!-- icon -->
               Download
             </a>
@@ -135,7 +135,10 @@
               </div>
           </td>
         </tr>
-        <?php } ?>
+        <?php 
+          $i = $i +1;
+          } 
+        ?>
 
       </table>
 
@@ -155,7 +158,7 @@
             $("#hrbaptis").val(hrbaptis);
             $("#tgbaptis").val(tgbaptis);
             $("#oleh").val(oleh);
-            
+
             if (mode=='t'){
               $('#judul').html("Tambah Data");
               $("input").prop('disabled', false);
@@ -244,7 +247,7 @@
           </tr>
           <tr style="display:none">
             <td>Hari Baptis</td>
-            <td>               
+            <td>
               <select name="hrbaptis" id="hrbaptis">
                 <option value="0">Minggu</option>
                 <option value="1">Senin</option>
@@ -314,7 +317,7 @@
         weekday[4] = "Kamis";
         weekday[5] = "Jumat";
         weekday[6] = "Sabtu";
-       
+
         document.getElementById("hrbaptis").selectedIndex = d.getDay();
     });
 </script>
