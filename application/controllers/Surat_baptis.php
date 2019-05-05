@@ -125,18 +125,34 @@ class Surat_baptis extends CI_Controller {
 
   public function tampilkan_surat($filename="thefile")
   {
-    //////// Cek jika file pdf ada atau tidak, 
+    //////// Cek jika file pdf ada atau tidak,
     //////// jika tidak, buat file pdfnya
-    $url=base_url();
-    $file = $url."/uploads/".$filename.".pdf";
+    $file = "./uploads/".$filename.".pdf";
     if (!(file_exists($file))) {
-      // buat pdf
+      $res=$this->M_surat->get_data_where("data_baptis",
+      array('file_surat' => $filename))->result_array();
+      $row=$res[0];
+      $this->M_pdf->hanya_save($row['nomor'],$row['nama'],$row['tempat_lahir'],
+      $row['tgl_lahir'],$row['nm_ayah'],$row['nm_ibu'],$row['hari_baptis'],
+      $row['tgl_baptis'],$row['nm_pastor']);
     }
     ///////
     $this->pdf->filename=$filename.".pdf";
     $this->output->set_content_type('application/pdf')->set_output(file_get_contents(
       base_url()."uploads/".$filename.".pdf"));
   }
-
+  public function download_surat($filename)
+  {
+    $filepath="./uploads/".$filename.".pdf";
+    if (!(file_exists($filepath))){
+      $res=$this->M_surat->get_data_where("data_baptis",
+      array('file_surat' => $filename))->result_array();
+      $row=$res[0];
+      $this->M_pdf->hanya_save($row['nomor'],$row['nama'],$row['tempat_lahir'],
+      $row['tgl_lahir'],$row['nm_ayah'],$row['nm_ibu'],$row['hari_baptis'],
+      $row['tgl_baptis'],$row['nm_pastor']);
+    }
+    redirect($filepath);
+  }
 }
 ?>

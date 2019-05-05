@@ -1,6 +1,47 @@
 <?php
     class M_surat extends CI_Model
     {
+
+        /*
+          Return result yang sort dari nomor surat, contoh dari:
+          001/GPT/A/I/19
+          001/GPT/A/II/19
+          002/GPT/A/I/19
+          jadi:
+          001/GPT/A/I/19
+          002/GPT/A/I/19
+          001/GPT/A/II/19
+        */
+        function get_data_sorted($table)
+        {
+          /*
+            stored function:
+              CREATE FUNCTION `fromRoman`(inRoman varchar(15)) RETURNS int(11)
+                  DETERMINISTIC
+              BEGIN
+              DECLARE numeral CHAR(7) DEFAULT 'IVXLCDM'; 
+              DECLARE digit TINYINT; 
+              DECLARE previous INT DEFAULT 0; 
+              DECLARE current INT; 
+              DECLARE sum INT DEFAULT 0; SET inRoman = UPPER(inRoman); 
+              WHILE LENGTH(inRoman) > 0 DO 
+                SET digit := LOCATE(RIGHT(inRoman, 1), numeral) - 1; 
+                SET current := POW(10, FLOOR(digit / 2)) * POW(5, MOD(digit, 2)); 
+                SET sum := sum + POW(-1, current < previous) * current; 
+                SET previous := current; SET inRoman = LEFT(inRoman, LENGTH(inRoman) - 1); 
+              END WHILE; 
+              RETURN sum;
+              END
+          */
+          $sOrder = "SELECT CONCAT(
+                      RIGHT(nomor, 2), 
+                      fromRoman(LEFT(RIGHT(nomor,LENGTH(nomor)-10),LENGTH(RIGHT(nomor,LENGTH(nomor)-10))-3)),
+                      LEFT(nomor,3)
+                    )";
+          $sQuery = "SELECT * FROM ".$table." ORDER BY LENGTH((".$sOrder.")), (".$sOrder.")";
+          $query = $this->db->query($sQuery);
+          return $query->result();
+        }
         //SELECT * FROM $table WHERE $where
         function get_data_where($table, $where)
         {
