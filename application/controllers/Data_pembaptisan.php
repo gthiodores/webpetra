@@ -16,7 +16,7 @@ class Data_pembaptisan extends CI_Controller {
         if($s == null || $hak_akses & 0b10 != 0b10){
             redirect(base_url());
         } else {
-            $data['dt_baptis'] = $this->M_surat->get_data_all('data_baptis');
+            $data['dt_baptis'] = $this->M_surat->get_data_sorted('data_baptis');
             $data['pastors'] = $this->M_user->get_field('nm_pastor','data_pastor');
             $this->load->view('data_pembaptisan_view', $data);
         }
@@ -51,7 +51,7 @@ class Data_pembaptisan extends CI_Controller {
         );
 
         $this->M_surat->update_data('data_baptis',$data, $where);
-        $this->M_surat->buat_surat($nomor,$nama,$tplahir,
+        $this->M_pdf->buat_surat($nomor,$nama,$tplahir,
         $tglahir,$ayah,$ibu,$hrbaptis,$tgbaptis,$oleh);
         redirect('Data_pembaptisan');
     }
