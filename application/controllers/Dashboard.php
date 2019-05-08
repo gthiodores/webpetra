@@ -15,74 +15,28 @@ class dashboard extends CI_Controller {
     } else{
       //Checks if the URL contains a query e.g ..dashboard?query=..
       //If it doesn't contain any query then load a default data
-      //Default data = this year mode in query type URL
-      if(!isset($_POST['waktu1'])) {
+      //Default data = this year
+      if(!isset($_POST['waktu1']))
         $year = date("Y");
-        $label = array();
-        $baptism_count = array();
-        for ($i=1; $i <= 12; $i++) {
-          //Fills label with month names (will be used by graph)
-          $time = mktime(0, 0, 0, $i, 1, $year);
-          array_push($label, date("F", $time));
+      else
+        $year = $this->input->post('waktu1');
+      $label = array();
+      $baptism_count = array();
+      for ($i=1; $i <= 12; $i++) {
+        //Fills label with month names (will be used by graph)
+        $time = mktime(0, 0, 0, $i, 1, $year);
+        array_push($label, date("F", $time));
 
-          //Fills data with amount of baptism event for the i-st/nd/rd/th month
-          $date = date("Y-m-", $time);
-          array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
-        }
-        $data = array(
-          'date_type' => 0,
-          'label' => $label,
-          'count' => $baptism_count
-        );
-        $this->load->view('dashboard', $data);
-      } else {
-        //Else fetch data based on the specified date format
-        //0 = this year, 1 = this month, xxxx = year[xxxx]
-        //e.g ../dashboard?query=0 will look for data that was inputted in this year
-        $date_type = $this->input->post('waktu1');
-        $year = date("Y");
-        $label = array();
-        $baptism_count = array();
-        if ($date_type == '0') {
-          for ($i=1; $i <= 12; $i++) {
-            //Fills label with month names (will be used by graph)
-            $time = mktime(0, 0, 0, $i, 1, $year);
-            array_push($label, date("F", $time));
-
-            //Fills data with amount of baptism event for the i-st/nd/rd/th month
-            $date = date("Y-m-", $time);
-            array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
-          }
-        } elseif ($date_type == '1') {
-          $month = (date("m"));
-          $max_day = (date("t"));
-          for ($i=1; $i <= $max_day ; $i++) {
-            $time = mktime(0,0,0,$month, $i, $year);
-            $date = date("Y-m-d", $time);
-            //Fills label with numbers from 01 to max date(31/30/29/28)
-            array_push($label, date("d", $time));
-            //Fills baptism_count
-            array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
-          }
-        } else {
-          $year = $date_type;
-          for ($i=1; $i <= 12; $i++) {
-            //Fills label with month names (will be used by graph)
-            $time = mktime(0, 0, 0, $i, 1, $year);
-            array_push($label, date("F", $time));
-
-            //Fills data with amount of baptism event for the i-st/nd/rd/th month
-            $date = date("Y-m-", $time);
-            array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
-          }
-        }
-        $data = array(
-          'date_type' => $date_type,
-          'label' => $label,
-          'count' => $baptism_count
-        );
-        $this->load->view('dashboard', $data);
+        //Fills data with amount of baptism event for the i-st/nd/rd/th month
+        $date = date("Y-m-", $time);
+        array_push($baptism_count, $this->M_surat->get_baptis_count("data_baptis", $date));
       }
+      $data = array(
+        'date_type' => $year,
+        'label' => $label,
+        'count' => $baptism_count
+      );
+      $this->load->view('dashboard', $data);
     }
   }
 

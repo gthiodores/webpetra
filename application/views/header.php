@@ -34,7 +34,7 @@
   <!-- Custom styles for this template -->
   <link href="<?php echo base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/datatables.min.css"/>
- 
+  <link href="<?php echo base_url(); ?>assets/css/bootstrap-datepicker.standalone.css" rel="stylesheet" type="text/css">
 </head>
 <body>
   <script src="<?php echo base_url(); ?>assets/js/feather.min.js"></script>

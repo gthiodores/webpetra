@@ -4,22 +4,17 @@
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Baptisan</h1>
-      <form action="<?php echo base_url() ?>Dashboard" method="post">
         <div class="btn-toolbar mb-2 mb-md-0">
   <!--         <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
           </div> -->
-          <!-- dropdown -->
-          <select name="waktu1" id="waktu1" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <option value="1">Tiap Tahun</option>
-            <option value="2">Bulanan</option>
-            <option value="3">Mingguan</option>
-          </select>
-          <!-- dropdown -->
-          <input type="submit" class="btn btn-sm btn-outline-secondary">
+          <form class="" action="<?php echo base_url(); ?>Dashboard" method="post">
+            <input class="datepicker" data-date-format="yyyy" name="waktu1"
+              placeholder="Tahun" value="<?php echo $date_type; ?>" readonly>
+            <input type="submit" class="btn btn-sm btn-outline-secondary">
+          </form>
         </div>
-      </form>
     </div>
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
     <script type="text/javascript">
