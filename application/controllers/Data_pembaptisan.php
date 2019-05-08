@@ -33,7 +33,7 @@ class Data_pembaptisan extends CI_Controller {
         $tglahir = $this->input->post('tglahir');
         $ayah = $this->input->post('ayah');
         $ibu = $this->input->post('ibu');
-        $hrbaptis = $this->input->post('hrbaptis');
+        // $hrbaptis = $this->input->post('hrbaptis');
         $tgbaptis = $this->input->post('tgbaptis');
         $oleh = $this->input->post('oleh');
 
@@ -44,7 +44,7 @@ class Data_pembaptisan extends CI_Controller {
             'tgl_lahir' => $tglahir,
             'nm_ayah' => $ayah,
             'nm_ibu' => $ibu,
-            'hari_baptis' => $hrbaptis,
+            // 'hari_baptis' => $hrbaptis,
             'tgl_baptis' => $tgbaptis,
             'nm_pastor' => $oleh,
             'file_surat'=> $this->M_pdf->convert_slash_to_underscore($nomor)

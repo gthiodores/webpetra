@@ -1,10 +1,12 @@
 <?php
     class M_pdf extends CI_Model
     {
+        
         // Untuk membuat surat
         public function buat_surat($nomor_surat,$nama_penerima,$tempat_lahir,
-        $tanggal_lahir,$ayah,$ibu,$hari_baptis,$tgl_baptis,$oleh)
+        $tanggal_lahir,$ayah,$ibu,$tgl_baptis,$oleh)
         {
+          $hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu");
           $data = array (
               'nomor_surat' => $nomor_surat,
               'nama_penerima' => $nama_penerima,
@@ -12,7 +14,7 @@
               'tanggal_lahir' => $tanggal_lahir,
               'ayah' =>$ayah,
               'ibu' => $ibu,
-              'hari_baptis' => $hari_baptis,
+              'hari_baptis' => $hari[date('w',strtotime($tgl_baptis))],
               'tgl_baptis' => $tgl_baptis,
               'oleh' => $oleh
           );
@@ -23,8 +25,9 @@
         }
 
         public function hanya_save($nomor_surat,$nama_penerima,$tempat_lahir,
-        $tanggal_lahir,$ayah,$ibu,$hari_baptis,$tgl_baptis,$oleh)
+        $tanggal_lahir,$ayah,$ibu,$tgl_baptis,$oleh)
         {
+          $hari = array("Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu");
           $data = array (
               'nomor_surat' => $nomor_surat,
               'nama_penerima' => $nama_penerima,
@@ -32,7 +35,7 @@
               'tanggal_lahir' => $tanggal_lahir,
               'ayah' =>$ayah,
               'ibu' => $ibu,
-              'hari_baptis' => $hari_baptis,
+              'hari_baptis' => $hari[date('w',$tgl_baptis)],
               'tgl_baptis' => $tgl_baptis,
               'oleh' => $oleh
           );

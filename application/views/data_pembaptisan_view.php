@@ -108,11 +108,10 @@
           <td><?php echo $d->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <button class="btn btn-info" onclick="lihat_pdf('<?php echo $d->file_surat; ?>')">
-              <!-- icon -->
+            <!-- <button class="btn btn-info" onclick="lihat_pdf('<?php echo $d->file_surat; ?>')">
               Lihat
-            </button>
-            <a href="<?php echo "Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-link">
+            </button> -->
+            <a href="<?php echo "Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-info" target="_blank">
               <!-- icon -->
               Download
             </a>
@@ -284,7 +283,7 @@
 </div>
 
 <!-- Modal untuk pdf -->
-<div class="modal fade" id="myModalLihatSurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModalLihatSurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -301,7 +300,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- end -->
 
 <script type="text/javascript">
