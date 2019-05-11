@@ -90,11 +90,6 @@
         <tr>
           <th>Nomor</th>
           <th>Nama</th>
-          <!-- <th>Tempat Lahir</th>
-          <th>Tanggal Lahir</th>
-          <th>Nama Ayah</th>
-          <th>Nama Ibu</th>
-          <th>Hari Baptis</th> -->
           <th>Tanggal Baptis</th>
           <th>Oleh</th>
           <th>Operasi</th>
@@ -108,10 +103,10 @@
           <td><?php echo $d->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <!-- <button class="btn btn-info" onclick="lihat_pdf('<?php echo $d->file_surat; ?>')">
+            <!-- <button class="btn btn-info" onclick="lihat_pdf('<?php //echo $d->file_surat; ?>')">
               Lihat
             </button> -->
-            <a href="<?php echo "Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-info" target="_blank">
+            <a href="<?php echo base_url()."Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-info" target="_blank">
               <!-- icon -->
               Download
             </a>

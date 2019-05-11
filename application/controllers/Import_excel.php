@@ -12,8 +12,8 @@ class Import_excel extends CI_Controller
     $this->load->library('form_validation');
     $this->load->model('M_import');
     $this->load->model('M_pdf');
-
   }
+  
   public function index($error = NULL)
   {
     $data = array(
