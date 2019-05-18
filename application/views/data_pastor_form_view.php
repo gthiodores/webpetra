@@ -39,7 +39,7 @@
             // echo '<div class="form-group">';
             // echo '<label>' . $error . '</label>'; // show error upload
             echo '<br />';
-            echo form_upload('userfile');
+            echo form_upload("userfile");
             echo '</div>';
             // echo form_submit('mysubmit', 'Upload', 'class="btn btn-primary"');
             echo "<input type='submit' name='submit' value='upload' class='btn btn-primary'/>";

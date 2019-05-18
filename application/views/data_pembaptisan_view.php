@@ -16,7 +16,7 @@
   }
 
   function simpan(){
-    var teks, mode, vid, vnomor, vnama, vtplahir, vtglahir, vayah, vibu, vhrbaptis, vtgbaptis, voleh;
+    var teks, mode, vid, vnomor, vnama, vtplahir, vtglahir, valamat, vayah, vibu, vhrbaptis, vtgbaptis, voleh;
     mode = $("#mode").val();
     switch (mode) {
       // case "t": teks = "Data sudah benar?"; lok = "Data_pembaptisan/tambah"; break;
@@ -33,19 +33,20 @@
         vnama = $("#nama").val();
         vtplahir = $("#tplahir").val();
         vtglahir = $("#tglahir").val();
+        valamat = $("#alamat").val();
         vayah = $("#ayah").val();
         vibu = $("#ibu").val();
         vhrbaptis = $("#hrbaptis").val();
         vtgbaptis = $("#tgbaptis").val();
         voleh = $("#oleh").val();
 
-        vinput = [vnomor,vnama,vtplahir,vtglahir,vayah,vibu,vtgbaptis,voleh];
+        vinput = [vnomor,vnama,vtplahir,vtglahir,valamat,vayah,vibu,vtgbaptis,voleh];
 
         if(!isKosong(vinput)){
           $.ajax({
             url:"<?php echo base_url(); ?>"+lok,
             type: "post",
-            data:{id:vid, nomor:vnomor, nama:vnama, tplahir:vtplahir, tglahir:vtglahir, ayah:vayah, ibu:vibu, tgbaptis:vtgbaptis, oleh:voleh},
+            data:{id:vid, nomor:vnomor, nama:vnama, tplahir:vtplahir, tglahir:vtglahir, alamat:valamat, ayah:vayah, ibu:vibu, tgbaptis:vtgbaptis, oleh:voleh},
             success: function(res){
               location.reload();
             }
@@ -112,16 +113,16 @@
             </a>
             <button class="btn btn-success" onclick="
             tampil('e','<?php echo $d->nomor; ?>','<?php echo $d->nomor; ?>','<?php echo $d->nama; ?>',
-              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->nm_ayah; ?>',
-              '<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
+              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->alamat; ?>',
+              '<?php echo $d->nm_ayah; ?>','<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
               '<?php echo $d->nm_pastor; ?>')">
               <!-- icon -->
               Edit
             </button>
             <button class="btn btn-danger" onclick="
             tampil('h','<?php echo $d->nomor; ?>','<?php echo $d->nomor; ?>','<?php echo $d->nama; ?>',
-              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->nm_ayah; ?>',
-              '<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
+              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->alamat; ?>',
+              '<?php echo $d->nm_ayah; ?>','<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
               '<?php echo $d->nm_pastor; ?>')">
               <!-- icon -->
               Delete
@@ -140,13 +141,14 @@
 </main>
 
         <script type="text/javascript">
-          function tampil(mode, id, nomor, nama, tplahir, tglahir, ayah, ibu, tgbaptis, oleh){
+          function tampil(mode, id, nomor, nama, tplahir, tglahir, alamat, ayah, ibu, tgbaptis, oleh){
             $('#mode').val(mode);
             $("#id").val(id);
             $("#nomor").val(nomor);
             $("#nama").val(nama);
             $("#tplahir").val(tplahir);
             $("#tglahir").val(tglahir);
+            $("#alamat").val(alamat);
             $("#ayah").val(ayah);
             $("#ibu").val(ibu);
             $("#tgbaptis").val(tgbaptis);
@@ -229,6 +231,10 @@
           <tr>
             <td>Tanggal Lahir</td>
             <td><input id="tglahir" type="date" name="tglahir"></td>
+          </tr>
+          <tr>
+            <td>Alamat</td>
+            <td><input id="alamat" type="text" name="alamat"></td>
           </tr>
           <tr>
             <td>Ayah</td>

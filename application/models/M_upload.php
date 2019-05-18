@@ -9,14 +9,14 @@ class M_upload extends CI_Model {
         parent::__construct();
     }
 
-    public function upload_png($filename)
+    public function upload_png($filename,$filename2)
     {
         $this->load->library('upload');
         $config['upload_path']='./uploads/img/ttd/';
         $config['allowed_types'] = 'png';
         $config['max_size']  = '2048000';
         $config['overwrite'] = true;
-        $config['file_name'] = $filename;
+        $config['file_name'] = $filename2;
         $this->upload->initialize($config); // Load konfigurasi uploadnya
         if($this->upload->do_upload($filename)){
         // Lakukan upload dan Cek jika proses upload berhasil

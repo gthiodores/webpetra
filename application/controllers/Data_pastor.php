@@ -23,12 +23,16 @@ class Data_pastor extends CI_Controller {
   function proses(){
   	$id =$this->input->post('id');
     $nama = $this->input->post('nama');
-    $filename = $nama."-TTD-".$id;
+    $filename2 = $nama."-TTD-".$id;
+    $filename = "userfile";
   	// config upload
-    $data=$this->M_upload->upload_png($filename);
+    $data=$this->M_upload->upload_png($filename,$filename2);
     if ($data['result']=='failed') {
     	// jika validasi file gagal, kirim parameter error ke index
       $this->index($data['error']);
+    } else{
+    	$data['error'] = "<strong>Sukses menyimpan!</strong>";
+    	$this->index($data['error']);
     }
 
   }

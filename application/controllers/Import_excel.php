@@ -64,11 +64,12 @@ class Import_excel extends CI_Controller
           'nama'=>$row['B'], // Insert data nama dari kolom B di excel
           'tempat_lahir'=>$row['C'], // Insert data jenis kelamin dari kolom C di excel
           'tgl_lahir'=>$this->formatTanggal($row['D']), // Insert data alamat dari kolom D di excel
-          'nm_ayah'=>$row['E'], // Insert data alamat dari kolom E di excel
-          'nm_ibu'=>$row['F'], // Insert data alamat dari kolom F di excel
-          'hari_baptis'=>$this->formatHari($row['G']), // Insert data alamat dari kolom G di excel
-          'tgl_baptis'=>$this->formatTanggal($row['H']), // Insert data alamat dari kolom H di excel
-          'nm_pastor'=>$row['I'], // Insert data alamat dari kolom I di excel
+          'alamat'=>$row['E'],
+          'nm_ayah'=>$row['F'], // Insert data alamat dari kolom E di excel
+          'nm_ibu'=>$row['G'], // Insert data alamat dari kolom F di excel
+          // 'hari_baptis'=>$this->formatHari($row['H']), // Insert data alamat dari kolom G di excel
+          'tgl_baptis'=>$this->formatTanggal($row['I']), // Insert data alamat dari kolom H di excel
+          'nm_pastor'=>$row['J'], // Insert data alamat dari kolom I di excel
           'file_surat'=>$this->M_import->convert_slash_to_underscore($row['A']) // Insert data alamat dari kolom J di excel
         ));
         // $anu=$this->M_pdf->hanya_save($row['A'],$row['B'],$row['C'],$row['D'],$row['E'],$row['F'],$row['G'],

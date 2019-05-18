@@ -43,6 +43,7 @@ class Pdf extends Dompdf
 		$this->set_option( 'isRemoteEnabled', true );
 		$html = $this->ci()->load->view($view, $data, TRUE);
 		$this->load_html($html);
+		$this->setPaper('A5', 'landscape');
 		$this->render();
 		$pdfku=$this->output();
 		file_put_contents("uploads/".$this->filename,$pdfku);
