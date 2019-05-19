@@ -8,6 +8,12 @@
           return $this->db->get($table);
         }
 
+        function get_result_where($table,$where){
+          $this->db->where($where);
+          $query = $this->db->get($table);
+          return $query->row();
+        }
+
         //SELECT * FROM $table
         function get_all_data($table) {
           $sql = 'SELECT * FROM '.$table;

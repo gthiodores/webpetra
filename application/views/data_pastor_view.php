@@ -14,7 +14,7 @@
   }
 
   function simpan(){
-    var teks, mode, vid, vnl, vus, vps, vha, lok;
+    var teks, mode, vid, vnm, lok;
     var vha1,vha2,vha3;
     mode = $("#mode").val();
     switch (mode) {
@@ -63,31 +63,32 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Data User</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-primary" onclick="tampil('t','','','')">
+        <button type="button" class="btn btn-primary" onclick="tampil('t','','')">
           Tambah
         </button>
       </div>
     </div>
 
     <div>
-      
+      <?php echo $error; ?>
       <table id="tbl_user" class="table table-striped table-bordered bootstrap-datatable datatable">
         <thead>
 
         <tr>
-          <th>ID</th>
+          <!-- <th>ID</th> -->
           <th>Nama Pastor</th>
           <th>Operasi</th>
         </tr>
         </thead>
-        <?php foreach ($users as $u) { ?>
+        <?php foreach ($data_pastor as $d) { ?>
         <tr>
-          <td><?php echo $u->id; ?></td>
-          <td><?php echo $u->nm_pastor; ?></td>
+          <!-- <td><?php //echo $d->id; ?></td> -->
+          <td><?php echo $d->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <button class="btn btn-success" onclick="tampil('e','<?php echo $u->id; ?>','<?php echo $u->nm_pastor; ?>','<?php echo $u->tanda_tangan; ?>')">Edit</button>
-            <button class="btn btn-danger" onclick="tampil('h','<?php echo $u->id; ?>','<?php echo $u->nm_pastor; ?>','<?php echo $u->tanda_tangan; ?>')">Delete</button>
+              <a class="btn btn-warning" href="<?php echo base_url()."Data_pastor/upload_ttd/".$d->id; ?>">Upload TTD</a>
+              <button class="btn btn-success" onclick="tampil('e','<?php echo $d->id; ?>','<?php echo $d->nm_pastor; ?>')">Edit</button>
+              <button class="btn btn-danger" onclick="tampil('h','<?php echo $d->id; ?>','<?php echo $d->nm_pastor; ?>')">Delete</button>
             </div>
           </td>
         </tr>
@@ -99,11 +100,10 @@
 </main>
 
         <script type="text/javascript">
-          function tampil(mode, id, nm, ttd){
+          function tampil(mode, id, nm){
             $('#mode').val(mode);
             $('#id').val(id);
             $('#nm').val(nm);
-            $('#ttd').val(ttd);
             
             if (mode=='t'){
               $('#judul').html("Tambah Pastor");
@@ -149,16 +149,6 @@
           <tr>
             <td>Nama Pastor</td>
             <td><input id="nm" type="text" name="nama"></td>
-          </tr>
-          <tr>
-            <td>Tanda Tangan</td>
-            <td>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="ttd" name="tanda_tangan"
-                    aria-describedby="inputGroupFileAddon01">
-                  <label class="custom-file-label" for="ttd">Choose file</label>
-                </div>
-            </td>
           </tr>
         </table>
       </div>

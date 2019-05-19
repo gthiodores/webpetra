@@ -28,9 +28,9 @@ class Surat_baptis extends CI_Controller {
     $nama = $this->input->post('nama');
     $t4_lahir = $this->input->post('tempat_lahir');
     $tgl_lahir = $this->input->post('tanggal_lahir');
+    $alamat = $this->input->post('alamat');
     $ayah = $this->input->post('nama_ayah');
     $ibu = $this->input->post('nama_ibu');
-    $hari_baptis = $this->input->post('hari_baptis');
     $tgl_baptis = $this->input->post('tanggal_baptis');
     $oleh = $this->input->post('oleh');
 
@@ -39,9 +39,9 @@ class Surat_baptis extends CI_Controller {
       'nama' => $nama,
       'tempat_lahir' => $t4_lahir,
       'tgl_lahir' => $tgl_lahir,
+      'alamat' => $alamat,
       'nm_ayah' => $ayah,
       'nm_ibu' => $ibu,
-      'hari_baptis' => $hari_baptis,
       'tgl_baptis' => $tgl_baptis,
       'nm_pastor' => $oleh,
       'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
@@ -58,7 +58,7 @@ class Surat_baptis extends CI_Controller {
     $data = $this->session->flashdata('data_array');
 
     $this->M_pdf->buat_surat($data['nomor'],$data['nama'],$data['tempat_lahir'],
-      $data['tgl_lahir'],$data['nm_ayah'],$data['nm_ibu'],$data['hari_baptis'],
+      $data['tgl_lahir'],$data['alamat'],$data['nm_ayah'],$data['nm_ibu'],//$data['hari_baptis'],
       $data['tgl_baptis'],$data['nm_pastor']);
 
     $this->session->unset_userdata("dataArr");
@@ -72,9 +72,9 @@ class Surat_baptis extends CI_Controller {
     $nama = $this->input->post('nama');
     $t4_lahir = $this->input->post('tempat_lahir');
     $tgl_lahir = $this->input->post('tanggal_lahir');
+    $alamat = $this->input->post('alamat');
     $ayah = $this->input->post('nama_ayah');
     $ibu = $this->input->post('nama_ibu');
-    $hari_baptis = $this->input->post('hari_baptis');
     $tgl_baptis = $this->input->post('tanggal_baptis');
     $oleh = $this->input->post('oleh');
 
@@ -83,9 +83,9 @@ class Surat_baptis extends CI_Controller {
       'nama' => $nama,
       'tempat_lahir' => $t4_lahir,
       'tgl_lahir' => $tgl_lahir,
+      'alamat' => $alamat,
       'nm_ayah' => $ayah,
       'nm_ibu' => $ibu,
-      'hari_baptis' => $hari_baptis,
       'tgl_baptis' => $tgl_baptis,
       'nm_pastor' => $oleh,
       'file_surat'=>$this->M_pdf->convert_slash_to_underscore($nomor)
@@ -133,7 +133,7 @@ class Surat_baptis extends CI_Controller {
       array('file_surat' => $filename))->result_array();
       $row=$res[0];
       $this->M_pdf->hanya_save($row['nomor'],$row['nama'],$row['tempat_lahir'],
-      $row['tgl_lahir'],$row['nm_ayah'],$row['nm_ibu'],$row['hari_baptis'],
+      $row['tgl_lahir'],$row['alamat'],$row['nm_ayah'],$row['nm_ibu'],
       $row['tgl_baptis'],$row['nm_pastor']);
     }
     ///////
@@ -144,14 +144,19 @@ class Surat_baptis extends CI_Controller {
   public function download_surat($filename)
   {
     $filepath="./uploads/".$filename.".pdf";
-    if (!(file_exists($filepath))){
-      $res=$this->M_surat->get_data_where("data_baptis",
+
+    // jika file sudah ada, hapus
+    if ((file_exists($filepath))){
+        $this->M_pdf->delete_surat($filepath);
+    } 
+
+    // buat surat baru
+    $res=$this->M_surat->get_data_where("data_baptis", 
       array('file_surat' => $filename))->result_array();
-      $row=$res[0];
-      $this->M_pdf->hanya_save($row['nomor'],$row['nama'],$row['tempat_lahir'],
-      $row['tgl_lahir'],$row['nm_ayah'],$row['nm_ibu'],$row['hari_baptis'],
-      $row['tgl_baptis'],$row['nm_pastor']);
-    }
+    $row=$res[0];
+    $this->M_pdf->hanya_save($row['nomor'],$row['nama'],$row['tempat_lahir'],
+    $row['tgl_lahir'],$row['alamat'],$row['nm_ayah'],$row['nm_ibu'],
+    $row['tgl_baptis'],$row['nm_pastor']);
     redirect($filepath);
   }
 }

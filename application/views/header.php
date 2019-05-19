@@ -33,13 +33,12 @@
   </style>
   <!-- Custom styles for this template -->
   <link href="<?php echo base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/datatables.min.css"/>
   <link href="<?php echo base_url(); ?>assets/css/bootstrap-datepicker.standalone.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
-
 </head>
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/feather.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/Chart.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
 
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">

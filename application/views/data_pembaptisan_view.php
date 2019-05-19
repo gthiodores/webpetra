@@ -16,7 +16,7 @@
   }
 
   function simpan(){
-    var teks, mode, vid, vnomor, vnama, vtplahir, vtglahir, vayah, vibu, vhrbaptis, vtgbaptis, voleh;
+    var teks, mode, vid, vnomor, vnama, vtplahir, vtglahir, valamat, vayah, vibu, vhrbaptis, vtgbaptis, voleh;
     mode = $("#mode").val();
     switch (mode) {
       // case "t": teks = "Data sudah benar?"; lok = "Data_pembaptisan/tambah"; break;
@@ -33,19 +33,20 @@
         vnama = $("#nama").val();
         vtplahir = $("#tplahir").val();
         vtglahir = $("#tglahir").val();
+        valamat = $("#alamat").val();
         vayah = $("#ayah").val();
         vibu = $("#ibu").val();
         vhrbaptis = $("#hrbaptis").val();
         vtgbaptis = $("#tgbaptis").val();
         voleh = $("#oleh").val();
 
-        vinput = [vnomor,vnama,vtplahir,vtglahir,vayah,vibu,vhrbaptis,vtgbaptis,voleh];
+        vinput = [vnomor,vnama,vtplahir,vtglahir,valamat,vayah,vibu,vtgbaptis,voleh];
 
         if(!isKosong(vinput)){
           $.ajax({
             url:"<?php echo base_url(); ?>"+lok,
             type: "post",
-            data:{id:vid, nomor:vnomor, nama:vnama, tplahir:vtplahir, tglahir:vtglahir, ayah:vayah, ibu:vibu, hrbaptis:vhrbaptis, tgbaptis:vtgbaptis, oleh:voleh},
+            data:{id:vid, nomor:vnomor, nama:vnama, tplahir:vtplahir, tglahir:vtglahir, alamat:valamat, ayah:vayah, ibu:vibu, tgbaptis:vtgbaptis, oleh:voleh},
             success: function(res){
               location.reload();
             }
@@ -90,11 +91,6 @@
         <tr>
           <th>Nomor</th>
           <th>Nama</th>
-          <!-- <th>Tempat Lahir</th>
-          <th>Tanggal Lahir</th>
-          <th>Nama Ayah</th>
-          <th>Nama Ibu</th>
-          <th>Hari Baptis</th> -->
           <th>Tanggal Baptis</th>
           <th>Oleh</th>
           <th>Operasi</th>
@@ -108,26 +104,25 @@
           <td><?php echo $d->nm_pastor; ?></td>
           <td>
             <div class="btn-group">
-            <button class="btn btn-info" onclick="lihat_pdf('<?php echo $d->file_surat; ?>')">
-              <!-- icon -->
+            <!-- <button class="btn btn-info" onclick="lihat_pdf('<?php //echo $d->file_surat; ?>')">
               Lihat
-            </button>
-            <a href="<?php echo "Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-link">
+            </button> -->
+            <a href="<?php echo base_url()."Surat_baptis/download_surat/".$d->file_surat; ?>" class="btn btn-info" target="_blank">
               <!-- icon -->
               Download
             </a>
             <button class="btn btn-success" onclick="
             tampil('e','<?php echo $d->nomor; ?>','<?php echo $d->nomor; ?>','<?php echo $d->nama; ?>',
-              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->nm_ayah; ?>',
-              '<?php echo $d->nm_ibu; ?>','<?php echo $d->hari_baptis; ?>','<?php echo $d->tgl_baptis; ?>',
+              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->alamat; ?>',
+              '<?php echo $d->nm_ayah; ?>','<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
               '<?php echo $d->nm_pastor; ?>')">
               <!-- icon -->
               Edit
             </button>
             <button class="btn btn-danger" onclick="
             tampil('h','<?php echo $d->nomor; ?>','<?php echo $d->nomor; ?>','<?php echo $d->nama; ?>',
-              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->nm_ayah; ?>',
-              '<?php echo $d->nm_ibu; ?>','<?php echo $d->hari_baptis; ?>','<?php echo $d->tgl_baptis; ?>',
+              '<?php echo $d->tempat_lahir; ?>','<?php echo $d->tgl_lahir; ?>','<?php echo $d->alamat; ?>',
+              '<?php echo $d->nm_ayah; ?>','<?php echo $d->nm_ibu; ?>','<?php echo $d->tgl_baptis; ?>',
               '<?php echo $d->nm_pastor; ?>')">
               <!-- icon -->
               Delete
@@ -146,16 +141,16 @@
 </main>
 
         <script type="text/javascript">
-          function tampil(mode, id, nomor, nama, tplahir, tglahir, ayah, ibu, hrbaptis, tgbaptis, oleh){
+          function tampil(mode, id, nomor, nama, tplahir, tglahir, alamat, ayah, ibu, tgbaptis, oleh){
             $('#mode').val(mode);
             $("#id").val(id);
             $("#nomor").val(nomor);
             $("#nama").val(nama);
             $("#tplahir").val(tplahir);
             $("#tglahir").val(tglahir);
+            $("#alamat").val(alamat);
             $("#ayah").val(ayah);
             $("#ibu").val(ibu);
-            $("#hrbaptis").val(hrbaptis);
             $("#tgbaptis").val(tgbaptis);
             $("#oleh").val(oleh);
 
@@ -238,26 +233,16 @@
             <td><input id="tglahir" type="date" name="tglahir"></td>
           </tr>
           <tr>
+            <td>Alamat</td>
+            <td><input id="alamat" type="text" name="alamat"></td>
+          </tr>
+          <tr>
             <td>Ayah</td>
             <td><input id="ayah" type="text" name="ayah"></td>
           </tr>
           <tr>
             <td>Ibu</td>
             <td><input id="ibu" type="text" name="ibu"></td>
-          </tr>
-          <tr style="display:none">
-            <td>Hari Baptis</td>
-            <td>
-              <select name="hrbaptis" id="hrbaptis">
-                <option value="0">Minggu</option>
-                <option value="1">Senin</option>
-                <option value="2">Selasa</option>
-                <option value="3">Rabu</option>
-                <option value="4">Kamis</option>
-                <option value="5">Jumat</option>
-                <option value="6">Sabtu</option>
-              </select>
-            </td>
           </tr>
           <tr>
             <td>Tanggal Baptis</td>
@@ -284,7 +269,7 @@
 </div>
 
 <!-- Modal untuk pdf -->
-<div class="modal fade" id="myModalLihatSurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModalLihatSurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -301,7 +286,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- end -->
 
 <script type="text/javascript">
